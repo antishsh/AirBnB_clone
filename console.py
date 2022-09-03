@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""[summary]
-"""
+"""[summary]"""
 
 import cmd
 import models
