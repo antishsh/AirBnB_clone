@@ -10,9 +10,18 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initialize the instance of class."""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    self.__dict__[key] = value
+                if "created_at" in kwargs.keys():
+                    self.created_at = datetime.strptime(kwargs["created_at"], '%Y-%m-%dT%H:%M:%S.%f')
+                if "updated_at" in kwargs.keys():
+                    self.updated_at = datetime.strptime(kwargs["updated_at"], '%Y-%m-%dT%H:%M:%S.%f')
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """Str definition."""
